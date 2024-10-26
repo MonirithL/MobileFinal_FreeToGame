@@ -10,6 +10,7 @@ class BrowseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<GameModel> games = context.watch<GameModelLogic>().games;
+    print("ayo this is list: ${games.length}");
     return Scaffold(
       body: Center(
           child: ListView.builder(

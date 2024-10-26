@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final gameModel = gameModelFromJson(jsonString);
+
 import 'dart:convert';
 
 List<GameModel> gameModelFromJson(String str) => List<GameModel>.from(json.decode(str).map((x) => GameModel.fromJson(x)));
@@ -11,7 +15,7 @@ class GameModel {
     String shortDescription;
     String gameUrl;
     String genre;
-    Platform platform;
+    String platform;
     String publisher;
     String developer;
     DateTime releaseDate;
@@ -38,7 +42,7 @@ class GameModel {
         shortDescription: json["short_description"],
         gameUrl: json["game_url"],
         genre: json["genre"],
-        platform: platformValues.map[json["platform"]]!,
+        platform: json["platform"],
         publisher: json["publisher"],
         developer: json["developer"],
         releaseDate: DateTime.parse(json["release_date"]),
@@ -52,32 +56,10 @@ class GameModel {
         "short_description": shortDescription,
         "game_url": gameUrl,
         "genre": genre,
-        "platform": platformValues.reverse[platform],
+        "platform": platform,
         "publisher": publisher,
         "developer": developer,
         "release_date": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
         "freetogame_profile_url": freetogameProfileUrl,
     };
-}
-
-enum Platform {
-    PC_WINDOWS,
-    WEB_BROWSER
-}
-
-final platformValues = EnumValues({
-    "PC (Windows)": Platform.PC_WINDOWS,
-    "Web Browser": Platform.WEB_BROWSER
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-            reverseMap = map.map((k, v) => MapEntry(v, k));
-            return reverseMap;
-    }
 }
