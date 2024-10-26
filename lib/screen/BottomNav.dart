@@ -53,6 +53,7 @@
 //     );
 //   }
 // }
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freetogame/logic/BottomNavLogic.dart';
 import 'package:freetogame/screen/AboutScreen.dart';
@@ -68,6 +69,22 @@ class BottomNav extends StatelessWidget {
     List<Widget> _screens = [BrowseScreen(), SearchScreen(), AboutScreen()];
     int currentIndex = context.watch<BottomNavLogic>().currentIndex;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Container(
+          padding: EdgeInsets.only(bottom: 10),
+          child: CachedNetworkImage(imageUrl: "https://www.freetogame.com/assets/images/freetogame-logo.png",),
+        ),
+        centerTitle: false,
+        actions: [
+          IconButton(onPressed: (){
+            //to be implement
+          }, icon: Icon(Icons.text_fields_outlined)),
+          IconButton(onPressed: (){
+            //to be implement
+          }, icon: Icon(Icons.dark_mode)),
+        ],
+      ),
       body: _screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
