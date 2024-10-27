@@ -66,7 +66,7 @@ class GameApp extends StatelessWidget {
 
     return MaterialApp(
       home: BottomNav(),
-      themeMode: themeIndex == 0 ? ThemeMode.dark : ThemeMode.light,
+      themeMode: themeIndex == 1 ? ThemeMode.light : ThemeMode.dark,
       darkTheme: _darkTheme(),
       theme: _lightTheme(),
     );
@@ -76,14 +76,17 @@ class GameApp extends StatelessWidget {
     return ThemeData(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245),
+      scaffoldBackgroundColor: const Color.fromARGB(255, 242, 242, 242),
       appBarTheme: const AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 47, 36, 77),
+        backgroundColor: Color.fromARGB(255, 68, 73, 82),
         foregroundColor: Colors.black,
+          iconTheme: IconThemeData(
+              color: Colors.grey
+          )
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.blueAccent,
+        backgroundColor: Color.fromARGB(255, 68, 73, 82),
+        selectedItemColor: Color.fromRGBO(240, 240, 240, 1),
         unselectedItemColor: Colors.grey,
       ),
     );
@@ -93,10 +96,13 @@ class GameApp extends StatelessWidget {
     return ThemeData(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      scaffoldBackgroundColor: const Color.fromARGB(244, 20, 20, 20),
+      scaffoldBackgroundColor: const Color.fromARGB(244, 41, 45, 51),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
+          iconTheme: IconThemeData(
+              color: Colors.white70
+          )
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.black,
