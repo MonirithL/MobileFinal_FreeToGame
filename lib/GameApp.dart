@@ -25,6 +25,8 @@ class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   Future _readAll(BuildContext context) async {
+    await Future.delayed(Duration(seconds: 1));
+    context.read<ThemeLogic>().readCache();
     context.read<GameModelLogic>().read();
   }
 
@@ -38,18 +40,20 @@ class SplashScreen extends StatelessWidget {
           } else {
             return MaterialApp(
               home: Scaffold(
-                body: Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "image/gameLogo.png",
-                      height: 200,
-                      width: 200,
-                    ),
-                    CircularProgressIndicator(),
-                  ],
-                )),
+                body: Container(
+                  child: Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "image/gameLogo.png",
+                        height: 200,
+                        width: 200,
+                      ),
+                      CircularProgressIndicator(),
+                    ],
+                  )),
+                ),
               ),
             );
           }
