@@ -6,6 +6,11 @@ class GameModelLogic extends ChangeNotifier{
   List<GameModel> _games = [];
   List<GameModel> get games => _games;
 
+  List<GameModel> _searchGames=[];
+  List<GameModel> get searchGames => searchGames;
+
+  String _query = "";
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -32,6 +37,23 @@ class GameModelLogic extends ChangeNotifier{
       _loading = false;
     }
     notifyListeners();
+  }
+
+  void searchObjects(String query) async {
+    if(query.trim().isEmpty){
+      List<GameModel> gamesSearched = [];
+      _searchGames = gamesSearched;
+    }else if(query.trim()==_query){
+
+    }else{
+      List<GameModel> gamesSearched = [];
+      gamesSearched.addAll(_games.where((game) {
+        return game.title.toLowerCase().contains(query.trim().toLowerCase());
+      }
+      )
+      );
+      _searchGames = gamesSearched;
+    }
   }
 
 
