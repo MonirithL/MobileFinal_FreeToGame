@@ -19,18 +19,45 @@ class AboutScreen extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.all(25), 
+            margin: EdgeInsets.all(25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   lang.aboutUs,
-                  style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold, color: textColor),
+                  style: TextStyle(
+                      fontSize: 29,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
-                SizedBox(height: 30), 
+                SizedBox(height: 25),
+                Text(
+                  lang.groupmember,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 5),
+                Text(
+                  lang.lengmonirith +
+                      ", " +
+                      lang.limankim +
+                      ", " +
+                      lang.sarompanha,
+                  style: TextStyle(fontSize: 15, color: textColor),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 15),
                 Text(
                   lang.aboutUs1,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor,),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 5),
@@ -42,7 +69,10 @@ class AboutScreen extends StatelessWidget {
                 SizedBox(height: 25),
                 Text(
                   lang.rewarding,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 Icon(
                   Icons.diamond_sharp,
@@ -57,7 +87,10 @@ class AboutScreen extends StatelessWidget {
                 SizedBox(height: 25),
                 Text(
                   lang.discovery,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 Icon(
                   Icons.games,
@@ -72,7 +105,10 @@ class AboutScreen extends StatelessWidget {
                 SizedBox(height: 25),
                 Text(
                   lang.recom,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 Icon(
                   Icons.recommend_outlined,

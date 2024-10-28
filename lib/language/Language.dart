@@ -26,6 +26,10 @@ class Language{
   String get discoveryContent => "Discover games easily and get introduced to new ones.";
   String get recom => "Smart Recommendations";
   String get recomContent => "Get personalized recommendations powered by our own algorithm.";
+  String get groupmember => "Group Member";
+  String get limankim => "Lim Ankim";
+  String get sarompanha => "Sarom Panha";
+  String get lengmonirith =>"Leng Monirith";
 }
 class Khmer implements Language{
   //panha
@@ -51,4 +55,8 @@ class Khmer implements Language{
   String get discoveryContent => "ស្វែងរកហ្គេមបានយ៉ាងងាយស្រួល និងណែនាំហ្គេមថ្មីៗ។";
   String get recom => "ការណែនាំឆ្លាតវៃ";
   String get recomContent => "ទទួលបានការណែនាំផ្ទាល់ខ្លួនដែលដំណើរការដោយក្បួនដោះស្រាយផ្ទាល់របស់យើង។";
+  String get groupmember =>"សមាជិកក្រុម";
+  String get limankim => "លឹមអានគីម";
+  String get sarompanha => "សារំុ​ បញ្ញា";
+  String get lengmonirith =>"ឡេង ម៉ូនីរិទ្ធិ";
 }
