@@ -30,6 +30,12 @@ class Language{
   String get limankim => "Lim Ankim";
   String get sarompanha => "Sarom Panha";
   String get lengmonirith =>"Leng Monirith";
+
+  String get searchBox => "Search Games Title";
+  String get searchResultNotFound => "No Results, Search Something!";
+  String get searchResult => "Result(s)";
+
+  String get goToGame => "Go to game";
 }
 class Khmer implements Language{
   //panha
@@ -56,7 +62,13 @@ class Khmer implements Language{
   String get recom => "ការណែនាំឆ្លាតវៃ";
   String get recomContent => "ទទួលបានការណែនាំផ្ទាល់ខ្លួនដែលដំណើរការដោយក្បួនដោះស្រាយផ្ទាល់របស់យើង។";
   String get groupmember =>"សមាជិកក្រុម";
-  String get limankim => "លឹមអានគីម";
-  String get sarompanha => "សារំុ​ បញ្ញា";
+  String get limankim => "លឹម អានគីម";
+  String get sarompanha => "សារុំ បញ្ញា";
   String get lengmonirith =>"ឡេង ម៉ូនីរិទ្ធិ";
+
+
+  String get goToGame => "ទៅកាន់ហ្គេម";
+  String get searchBox => "ស្វែងរកតាមឈ្មោះហ្គេម";
+  String get searchResult => "លទ្ធផលស្វែងរក";
+  String get searchResultNotFound => "មិនមានលទ្ធផល,សូមបញ្ចូលពាក្យក្នុងប្រអប់ស្វែងរក";
 }

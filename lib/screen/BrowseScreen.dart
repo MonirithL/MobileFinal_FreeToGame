@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freetogame/language/Language.dart';
 import 'package:freetogame/logic/GameModelLogic.dart';
+import 'package:freetogame/logic/LanguageLogic.dart';
 import 'package:freetogame/logic/ThemeLogic.dart';
 import 'package:freetogame/model/GameModel.dart';
 import 'package:freetogame/screen/DetailScreen.dart';
@@ -13,6 +15,50 @@ class BrowseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     themeIndex = context.watch<ThemeLogic>().themeIndex;
+
+    bool loading = context.watch<GameModelLogic>().loading;
+    if(loading){
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    String? error = context.watch<GameModelLogic>().error;
+    if(error != null){
+      return Center(child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(error, style: TextStyle(color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236)),textAlign: TextAlign.justify,),
+          ),
+          TextButton(
+            onPressed: (){
+              context.read<GameModelLogic>().read();
+            },
+            child: Text("Retry connection",
+              style: (themeIndex==1)?TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,39, 43, 59),):
+              TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,242, 242, 242),)
+              ,),
+            style: TextButton.styleFrom(
+                backgroundColor: (themeIndex==1)?Colors.transparent:Color.fromARGB(255,0, 153, 255),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3),
+                  side: BorderSide(
+                    color: (themeIndex==1)?Color.fromARGB(255,0, 153, 255):Colors.transparent,
+                    width: 1.0,
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(
+                    vertical: 0,
+                    horizontal: 6
+                )
+            ),
+          ),
+        ],
+      ));
+    }
+
+
     List<GameModel> games = context.watch<GameModelLogic>().games;
     return Scaffold(
       body: Center(
@@ -83,6 +129,8 @@ class BrowseScreen extends StatelessWidget {
   }
 
   Widget _buildContent(GameModel game, BuildContext context){
+    int _langIndex = context.watch<LanguageLogic>().langIndex;
+    Language lang = _langIndex == 0 ? Language() : Khmer();
     return Container(
       decoration: BoxDecoration(
           color: (themeIndex==1)?Color.fromARGB(255, 242, 242, 242):Color.fromARGB(255, 39, 43, 40),
@@ -148,7 +196,7 @@ class BrowseScreen extends StatelessWidget {
                   onPressed: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailscreen(game:game)));
                   },
-                  child: Text("See more",
+                  child: Text(lang.seeMore,
                   style: (themeIndex==1)?TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,39, 43, 59),):
                   TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,242, 242, 242),)
                     ,),

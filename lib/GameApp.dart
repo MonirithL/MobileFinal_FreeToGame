@@ -27,6 +27,7 @@ class SplashScreen extends StatelessWidget {
   Future _readAll(BuildContext context) async {
     await Future.delayed(Duration(seconds: 1));
     context.read<ThemeLogic>().readCache();
+    context.read<LanguageLogic>().readCache();
     context.read<GameModelLogic>().read();
   }
 

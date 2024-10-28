@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freetogame/language/Language.dart';
 import 'package:freetogame/logic/GameModelLogic.dart';
 import 'package:freetogame/logic/ThemeLogic.dart';
 import 'package:freetogame/model/GameModel.dart';
 import 'package:freetogame/screen/DetailScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../logic/LanguageLogic.dart';
 
 class SearchScreen extends StatefulWidget {
 
@@ -18,6 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController _searchController;
   List<GameModel> results = [];
   List<GameModel> original =[];
+  late Language _lang;
   @override
   void initState() {
     super.initState();
@@ -32,6 +36,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     original = context.watch<GameModelLogic>().games;
     themeIndex = context.watch<ThemeLogic>().themeIndex;
+    int _langIndex= context.watch<LanguageLogic>().langIndex;
+    _lang = _langIndex == 0 ? Language() : Khmer();
     return Scaffold(
         body: Center(
           child: _buildBody(context, themeIndex),
@@ -69,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                        hintText: "Search Games Title",
+                        hintText: _lang.searchBox,
                         hintStyle: TextStyle(
                           color: (themeIndex == 1)
                               ? Color.fromARGB(184, 39, 43, 49)
@@ -112,7 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if(gameSearched.isEmpty){
       return Expanded(
         child: Center(
-          child: Text("No results, Search Something!",
+          child: Text(_lang.searchResultNotFound,
             style: TextStyle(color: (themeIndex == 1)
                 ? Color.fromARGB(180, 39, 43, 49)
                 : Color.fromARGB(180, 236, 236, 236),),),
@@ -126,7 +132,7 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Result(s): ${gameSearched.length}",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236))
+                child: Text(_lang.searchResult+": ${gameSearched.length}",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236))
                   ,textAlign: TextAlign.start,),
               ),
               Expanded(
@@ -223,7 +229,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailscreen(game:game)));
                 },
-                child: Text("See more",
+                child: Text(_lang.seeMore,
                   style: (themeIndex==1)?TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,39, 43, 59),):
                   TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,242, 242, 242),)
                   ,),
