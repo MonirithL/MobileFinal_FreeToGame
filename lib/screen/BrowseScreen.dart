@@ -115,6 +115,7 @@ class BrowseScreen extends StatelessWidget {
                     color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236),
                   ),
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),),
                 Container(
                   padding: EdgeInsets.only(left: 6),

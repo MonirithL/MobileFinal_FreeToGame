@@ -25,26 +25,28 @@ class Detailscreen extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    String releasedDate = DateFormat('yyyy, MM dd').format(game.releaseDate);
+    String releasedDate = DateFormat('yyyy-MM-dd').format(game.releaseDate);
     return Container(
         padding: EdgeInsets.all(12),
         child: Column(children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
             textBaseline: TextBaseline.alphabetic,
             children: [
-              Text(
-                game.title,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: (themeIndex == 1)
-                      ? Color.fromARGB(255, 39, 43, 49)
-                      : Color.fromARGB(255, 236, 236, 236),
+              Expanded(
+                child: Text(
+                  game.title,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: (themeIndex == 1)
+                        ? Color.fromARGB(255, 39, 43, 49)
+                        : Color.fromARGB(255, 236, 236, 236),
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 2, 
-                overflow: TextOverflow.ellipsis, 
               ),
               SizedBox(width: 8),
               Text(
