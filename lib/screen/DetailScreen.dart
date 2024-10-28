@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freetogame/logic/GameModelLogic.dart';
+import 'package:freetogame/logic/LanguageLogic.dart';
 import 'package:freetogame/logic/ThemeLogic.dart';
 import 'package:freetogame/model/GameModel.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +21,17 @@ class Detailscreen extends StatelessWidget {
     List<GameModel> games = context.watch<GameModelLogic>().games;
     return Scaffold(
       appBar: AppBar(
-          title: Text(game.title, style: TextStyle(color: Colors.white))),
+        title: Text(game.title, style: TextStyle(color: Colors.white)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<ThemeLogic>().toggle();
+            },
+            icon: Icon(themeIndex == 1 ? Icons.light_mode : Icons.dark_mode),
+          )
+          // icon: Icon(Icons.dark_mode)),
+        ],
+      ),
       body: _buildBody(),
     );
   }
@@ -223,9 +234,23 @@ class Detailscreen extends StatelessWidget {
             ),
           ]),
           Center(
-            child: TextButton(
-              child: Text("Go to game"),
-              onPressed: (){
+            child: ElevatedButton(
+              style: TextButton.styleFrom(
+                  backgroundColor: (themeIndex == 1)
+                      ? Colors.transparent
+                      : Color.fromARGB(255, 0, 153, 255),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 24)),
+              child: Text(
+                "Go to game",
+                style: TextStyle(
+                  color: Colors.white, // Text color
+                  fontSize: 16, // Text size
+                ),
+              ),
+              onPressed: () {
                 openLink(game.gameUrl);
               },
             ),
