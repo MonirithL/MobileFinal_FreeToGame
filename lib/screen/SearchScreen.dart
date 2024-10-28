@@ -20,7 +20,6 @@ class _SearchScreenState extends State<SearchScreen> {
   List<GameModel> original =[];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _searchController = TextEditingController();
   }
@@ -41,6 +40,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildBody(BuildContext context, int themeIndex){
+    String query = context.watch<GameModelLogic>().query;
+    _searchController.text = query;
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -107,7 +108,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildList(BuildContext context, int themeIndex){
-    if(results.isEmpty){
+    List<GameModel> gameSearched = context.watch<GameModelLogic>().searchGames;
+    if(gameSearched.isEmpty){
       return Expanded(
         child: Center(
           child: Text("No results, Search Something!",
@@ -124,16 +126,16 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Result(s): ${results.length}",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236))
+                child: Text("Result(s): ${gameSearched.length}",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236))
                   ,textAlign: TextAlign.start,),
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: results.length,
+                    itemCount: gameSearched.length,
                     itemBuilder: (context, index){
                       return Container(
                           padding: EdgeInsets.only(top: 10, bottom: 6, left: 12, right: 10),
-                          child: _buildItems(results[index], context));
+                          child: _buildItems(gameSearched[index], context));
                     }
                 ),
               ),
@@ -252,13 +254,8 @@ class _SearchScreenState extends State<SearchScreen> {
     String searchText = _searchController.text; // Get the text from the TextField
     if (searchText.isNotEmpty) {
       // Perform your search operation here
-      List<GameModel> gamesFound = original.where((game) {
-        return game.title.toLowerCase().contains(searchText.trim().toLowerCase());
-      }).toList();
-      setState(() {
-        results = gamesFound;
-        print("Result length: ${results.length}");
-      });
+      context.read<GameModelLogic>().setQuery(searchText);
+      context.read<GameModelLogic>().searchObjects(searchText);
     }
   }
 
