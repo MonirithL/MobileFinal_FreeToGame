@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:freetogame/language/Language.dart';
 import 'package:freetogame/logic/ThemeLogic.dart';
 import 'package:provider/provider.dart';
 
+import '../logic/LanguageLogic.dart';
+
 class AboutScreen extends StatelessWidget {
-  const AboutScreen({super.key});
+  late int _langIndex;
 
   @override
   Widget build(BuildContext context) {
     final themeIndex = context.watch<ThemeLogic>().themeIndex;
     final textColor = themeIndex == 0 ? Colors.white : Colors.black;
+    _langIndex = context.watch<LanguageLogic>().langIndex;
+    Language lang = _langIndex == 0 ? Language() : Khmer();
 
     return Scaffold(
       body: Center(
@@ -19,30 +24,25 @@ class AboutScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "About Us",
+                  lang.aboutUs,
                   style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold, color: textColor),
                 ),
                 SizedBox(height: 30), 
                 Text(
-                  "What is FreeToGame all about?",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: textColor),
+                  lang.aboutUs1,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor,),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 5),
                 Text(
-                  "We built FreeToGame to create an ecosystem that brings "
-                  "all the best Free-to-Play Games and MMO Games into one "
-                  "place while rewarding gamers with free premium in-game "
-                  "loot, special offers, and exclusive perks. Our vision is to "
-                  "create the most exciting and rewarding gaming experience "
-                  "by breaking the inflexible concept of digital storefronts. "
-                  "You get more value... and it's all still completely free.",
+                  lang.aboutUs2,
                   style: TextStyle(fontSize: 13, color: textColor),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 25),
                 Text(
-                  "More Rewarding",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: textColor),
+                  lang.rewarding,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor),
                 ),
                 Icon(
                   Icons.diamond_sharp,
@@ -50,14 +50,14 @@ class AboutScreen extends StatelessWidget {
                   color: Color.fromARGB(255, 142, 1, 202),
                 ),
                 Text(
-                  "Score all premium loot for free, unlock rewards and exclusive perks!",
+                  lang.rewardingContent,
                   style: TextStyle(fontSize: 13, color: textColor),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 25),
                 Text(
-                  "Easy Discovery",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: textColor),
+                  lang.discovery,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor),
                 ),
                 Icon(
                   Icons.games,
@@ -65,14 +65,14 @@ class AboutScreen extends StatelessWidget {
                   color: Color.fromARGB(255, 250, 84, 0),
                 ),
                 Text(
-                  "Discover games easily and get introduced to new ones.",
+                  lang.discoveryContent,
                   style: TextStyle(fontSize: 13, color: textColor),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 25),
                 Text(
-                  "Smart Recommendations",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: textColor),
+                  lang.recom,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor),
                 ),
                 Icon(
                   Icons.recommend_outlined,
@@ -80,7 +80,7 @@ class AboutScreen extends StatelessWidget {
                   color: Color.fromARGB(255, 2, 177, 216),
                 ),
                 Text(
-                  "Get personalized recommendations powered by our own algorithm.",
+                  lang.recomContent,
                   style: TextStyle(fontSize: 13, color: textColor),
                   textAlign: TextAlign.center,
                 ),

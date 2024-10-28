@@ -25,11 +25,9 @@ class BottomNav extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Container(
+          // alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(bottom: 10),
-          child: CachedNetworkImage(
-            imageUrl:
-                "https://www.freetogame.com/assets/images/freetogame-logo.png",
-          ),
+          child: Image.asset("image/logo_S.png")
         ),
         centerTitle: false,
         actions: [
