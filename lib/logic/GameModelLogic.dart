@@ -6,8 +6,8 @@ class GameModelLogic extends ChangeNotifier{
   List<GameModel> _games = [];
   List<GameModel> get games => _games;
 
-  List<GameModel> _searchGames=[];
-  List<GameModel> get searchGames => searchGames;
+  List<GameModel> _searchGames = [];
+  List<GameModel> get searchGames => _searchGames;
 
   String _query = "";
 
@@ -54,6 +54,7 @@ class GameModelLogic extends ChangeNotifier{
       );
       _searchGames = gamesSearched;
     }
+    notifyListeners();
   }
 
 
