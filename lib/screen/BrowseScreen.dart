@@ -15,13 +15,13 @@ class BrowseScreen extends StatelessWidget {
     List<GameModel> games = context.watch<GameModelLogic>().games;
     return Scaffold(
       body: Center(
-          child: _buildListView(games)
+          child: _buildListView(games, context)
       ),
     );
 
 
   }
-  Widget _buildListView(List<GameModel> games){
+  Widget _buildListView(List<GameModel> games, BuildContext context){
     return RefreshIndicator(
       child: ListView.builder(
         itemCount: games.length,
@@ -31,7 +31,7 @@ class BrowseScreen extends StatelessWidget {
         padding: EdgeInsets.only(top: 6, bottom: 6),
       ),
       onRefresh: () async{
-        // context.read<GameModelLogic>().read();
+        context.read<GameModelLogic>().read();
       },
     );
   }
@@ -44,11 +44,16 @@ class BrowseScreen extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: 
               // Mimicking background gradient with diagonal shadow effect
-              (themeIndex==1)?[BoxShadow(
+              (themeIndex==1)?
+              [
+                BoxShadow(
                 color: Colors.black.withOpacity(0.5),
                 offset: Offset(0, 3),
                 blurRadius: 5,
-              )]:[
+              )
+              ]
+                  :
+              [
                 BoxShadow(
                   color: Colors.blue,
                   offset: Offset(3, 3),
@@ -138,7 +143,15 @@ class BrowseScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 16, bottom: 6, right: 16),
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+
+
+
+
+                    //Implement navigate function here, grab the game
+
+
+                  },
                   child: Text("See more",
                   style: (themeIndex==1)?TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,39, 43, 59),):
                   TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,242, 242, 242),)
