@@ -6,6 +6,7 @@ import 'package:freetogame/logic/ThemeLogic.dart';
 import 'package:freetogame/model/GameModel.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Detailscreen extends StatelessWidget {
   GameModel game;
@@ -221,6 +222,23 @@ class Detailscreen extends StatelessWidget {
               ),
             ),
           ]),
+          Center(
+            child: TextButton(
+              child: Text("Go to game"),
+              onPressed: (){
+                openLink(game.gameUrl);
+              },
+            ),
+          )
         ]));
+  }
+
+  void openLink(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      print("Could not launch $url");
+    }
   }
 }

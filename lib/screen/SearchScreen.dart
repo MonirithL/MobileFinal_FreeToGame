@@ -26,12 +26,24 @@ class SearchScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border(
+
+                    )
+                  ),
                   width: 200,
-                  child: TextField(decoration: InputDecoration(hintText: "Search Games Title",)),),
+                  child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search Games Title",
+                        border: InputBorder.none
+                      )
+                  ),
+                ),
               ),
               IconButton(onPressed: (){
                 //search service
-                openLink('https://www.google.com');
+
               }, icon: Icon(Icons.search_outlined))
             ],
           )
@@ -40,14 +52,7 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  void openLink(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      print("Could not launch $url");
-    }
-  }
+
 
 
 
