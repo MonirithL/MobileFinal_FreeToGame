@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freetogame/logic/GameModelLogic.dart';
 import 'package:freetogame/logic/ThemeLogic.dart';
 import 'package:freetogame/model/GameModel.dart';
+import 'package:freetogame/screen/DetailScreen.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui';
 
@@ -144,13 +145,7 @@ class BrowseScreen extends StatelessWidget {
                 padding: EdgeInsets.only(left: 16, bottom: 6, right: 16),
                 child: TextButton(
                   onPressed: (){
-
-
-
-
-                    //Implement navigate function here, grab the game
-
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailscreen(game:game)));
                   },
                   child: Text("See more",
                   style: (themeIndex==1)?TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,39, 43, 59),):
