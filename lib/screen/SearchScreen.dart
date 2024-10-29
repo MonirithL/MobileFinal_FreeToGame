@@ -114,41 +114,96 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildList(BuildContext context, int themeIndex){
-    List<GameModel> gameSearched = context.watch<GameModelLogic>().searchGames;
-    if(gameSearched.isEmpty){
+    List<GameModel> gamesSearched = context.watch<GameModelLogic>().searchGames;
+    String queryWatch = context.watch<GameModelLogic>().query;
+    String? error = context.watch<GameModelLogic>().error;
+    if(error != null && queryWatch.isNotEmpty){
+      //empty and error search logic
+      context.read<GameModelLogic>().clearSearch();
       return Expanded(
-        child: Center(
-          child: Text(_lang.searchResultNotFound,
-            style: TextStyle(color: (themeIndex == 1)
-                ? Color.fromARGB(180, 39, 43, 49)
-                : Color.fromARGB(180, 236, 236, 236),),),
-        ),
+        child: Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(error, style: TextStyle(color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236)),textAlign: TextAlign.justify,),
+            ),
+            TextButton(
+              onPressed: (){
+                context.read<GameModelLogic>().read();
+                _search();
+              },
+              child: Text("Retry connection",
+                style: (themeIndex==1)?TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,39, 43, 59),):
+                TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255,242, 242, 242),)
+                ,),
+              style: TextButton.styleFrom(
+                  backgroundColor: (themeIndex==1)?Colors.transparent:Color.fromARGB(255,0, 153, 255),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3),
+                    side: BorderSide(
+                      color: (themeIndex==1)?Color.fromARGB(255,0, 153, 255):Colors.transparent,
+                      width: 1.0,
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 6
+                  )
+              ),
+            ),
+          ],
+        )),
       );
-    }else{
-      return Expanded(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(_lang.searchResult+": ${gameSearched.length}",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: (themeIndex==1)?Color.fromARGB(255, 39, 43, 49):Color.fromARGB(255, 236, 236, 236))
-                  ,textAlign: TextAlign.start,),
-              ),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: gameSearched.length,
-                    itemBuilder: (context, index){
-                      return Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 6, left: 12, right: 10),
-                          child: _buildItems(gameSearched[index], context));
-                    }
-                ),
-              ),
-            ],
+    }else {
+      List<GameModel> gameSearched = context
+          .watch<GameModelLogic>()
+          .searchGames;
+      if (gameSearched.isEmpty &&queryWatch.isEmpty) {
+        return Expanded(
+          child: Center(
+            child: Text(_lang.searchResultNotFound,
+              style: TextStyle(color: (themeIndex == 1)
+                  ? Color.fromARGB(180, 39, 43, 49)
+                  : Color.fromARGB(180, 236, 236, 236),),),
           ),
-        ),
-      );
+        );
+      } else {
+        return Expanded(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(_lang.searchResult + ": ${gameSearched.length}",
+                    style: TextStyle(fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: (themeIndex == 1) ? Color.fromARGB(
+                            255, 39, 43, 49) : Color.fromARGB(
+                            255, 236, 236, 236))
+                    , textAlign: TextAlign.start,),
+                ),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: ()async{_search();},
+                    child: ListView.builder(
+                        itemCount: gameSearched.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                              padding: EdgeInsets.only(
+                                  top: 10, bottom: 6, left: 12, right: 10),
+                              child: _buildItems(gameSearched[index], context),
+                          );
+                        }
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     }
   }
 
@@ -256,13 +311,12 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
 
-  void _search(){
+  void _search()async{
     String searchText = _searchController.text; // Get the text from the TextField
-    if (searchText.isNotEmpty) {
-      // Perform your search operation here
-      context.read<GameModelLogic>().setQuery(searchText);
-      context.read<GameModelLogic>().searchObjects(searchText);
-    }
+    context.read<GameModelLogic>().setQuery(searchText);
+    // Perform your search operation here
+    context.read<GameModelLogic>().searchGamesFromList(searchText);
+    await context.read<GameModelLogic>().read();
   }
 
 

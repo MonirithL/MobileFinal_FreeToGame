@@ -32,6 +32,9 @@ class GameModelLogic extends ChangeNotifier{
     try {
       _games = await GameService.getModels();
       _error = null;
+      if(_query.isNotEmpty){
+        searchGamesFromList(_query);
+      }
     } catch (e) {
       _error = e.toString();
     } finally {
@@ -40,7 +43,7 @@ class GameModelLogic extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future searchObjects(String query) async {
+  Future searchGamesFromList(String query) async {
     if(query.trim().isEmpty){
       List<GameModel> gamesSearched = [];
       _searchGames = gamesSearched;
@@ -55,6 +58,10 @@ class GameModelLogic extends ChangeNotifier{
   }
   Future setQuery(String q)async{
     _query = q;
+    notifyListeners();
+  }
+  Future clearSearch() async{
+    _searchGames.clear();
     notifyListeners();
   }
 
